@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04.6
 
 # Setup system deps
 RUN apt-get update
@@ -12,9 +12,6 @@ RUN git clone https://github.com/creationix/nvm.git /.nvm
 RUN echo "source /.nvm/nvm.sh" >> /etc/bash.bashrc
 RUN /bin/bash -c 'source /.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $NODE_VERSION && nvm alias default $NODE_VERSION && ln -s /.nvm/versions/node/v$NODE_VERSION/bin/node /usr/local/bin/node && ln -s /.nvm/versions/node/v$NODE_VERSION/bin/npm /usr/local/bin/npm'
 RUN npm install -g npm@$NPM_VERSION
-
-# Upgrade pip
-RUN pip install --upgrade pip
 
 # Setup dockerize
 RUN pip install dockerize
