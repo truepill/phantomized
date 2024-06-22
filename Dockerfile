@@ -7,7 +7,6 @@ RUN apt-get -y install build-essential curl rsync tar python python-pip git libf
 # Setup Node
 ENV NODE_VERSION 6.17.1
 ENV NPM_VERSION 3.8.5
-ENV DOCKERIZE_VERSION v0.5.0
 
 RUN git clone https://github.com/creationix/nvm.git /.nvm
 RUN echo "source /.nvm/nvm.sh" >> /etc/bash.bashrc
@@ -15,7 +14,7 @@ RUN /bin/bash -c 'source /.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $N
 RUN npm install -g npm@$NPM_VERSION
 
 # Setup dockerize
-RUN pip install git+https://github.com/larsks/dockerize
+RUN pip install dockerize
 
 # Copy package.json
 COPY ./package.json /app/
