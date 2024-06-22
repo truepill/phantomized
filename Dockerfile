@@ -2,7 +2,7 @@ FROM ubuntu:14.04
 
 # Setup system deps
 RUN apt-get update
-RUN apt-get -y install build-essential curl rsync tar python python-pip git libfontconfig1 wget
+RUN apt-get -y install build-essential curl rsync tar python python-pip git libfontconfig1
 
 # Setup Node
 ENV NODE_VERSION 6.17.1
@@ -15,8 +15,7 @@ RUN /bin/bash -c 'source /.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $N
 RUN npm install -g npm@$NPM_VERSION
 
 # Setup dockerize
-RUN wget -O - https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz | tar xzf - -C /usr/local/bin \
-  && apt-get autoremove -yqq --purge wget && rm -rf /var/lib/apt/lists/*
+RUN pip install git+https://github.com/larsks/dockerize
 
 # Copy package.json
 COPY ./package.json /app/
