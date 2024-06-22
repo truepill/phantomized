@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get -y install build-essential curl rsync tar python python-pip git libfontconfig1 wget
 
 # Setup Node
-ENV NODE_VERSION 4.4.2
+ENV NODE_VERSION 6.17.1
 ENV NPM_VERSION 3.8.5
 ENV DOCKERIZE_VERSION v0.5.0
 
