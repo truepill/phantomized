@@ -1,4 +1,4 @@
-FROM ubuntu:18.04.6
+FROM ubuntu:18.04
 
 # Setup system deps
 RUN apt-get update
