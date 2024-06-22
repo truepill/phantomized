@@ -18,3 +18,15 @@ jobs:
 
       - name: Run Docker image
         run: docker run --name phantomized  -e PHANTOM_VERSION=2.1.1 phantomized
+
+      - name: Copy file from Docker container
+        run: docker cp phantomized:/app/dockerized-phantomjs.tar.gz ./dockerized-phantomjs.tar.gz
+
+      - name: Remove Docker container
+        run: docker rm phantomized
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dockerized-phantomjs
+          path: ./dockerized-phantomjs.tar.gz
