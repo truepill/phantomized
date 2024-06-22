@@ -15,7 +15,7 @@ RUN /bin/bash -c 'source /.nvm/nvm.sh && nvm install $NODE_VERSION && nvm use $N
 RUN npm install -g npm@$NPM_VERSION
 
 # Setup dockerize
-RUN pip install --index-url=https://pypi.python.org/simple/ git+https://github.com/larsks/dockerize
+RUN pip install --index-url=https://pypi.org/simple/ git+https://github.com/larsks/dockerize
 
 # Copy package.json
 COPY ./package.json /app/
