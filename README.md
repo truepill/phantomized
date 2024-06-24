@@ -1,3 +1,7 @@
+# Fork of PhantomJS
+
+This fork is to unbreak the Docker.base-image build in TPOS monorepo. Would be nice to move away from `html-pdf` package so we no longer depend on PhantomJS but, until then, we have this.
+
 # Stop using PhantomJS
 
 https://dustinblackman.com/posts/stop-using-phantomjs/
