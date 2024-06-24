@@ -1,7 +1,8 @@
 name: Release
 
 on:
-  pull_request:
+  release:
+    types: [created]
 
 jobs:
   build-and-release:
@@ -25,8 +26,18 @@ jobs:
       - name: Remove Docker container
         run: docker rm phantomized
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: phantomized.tar.gz
+      #     path: ./dockerized-phantomjs.tar.gz
+
+      - name: Upload artifact to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: dockerized-phantomjs
-          path: ./dockerized-phantomjs.tar.gz
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./dockerized-phantomjs.tar.gz
+          asset_name: dockerized-phantomjs.tar.gz
+          asset_content_type: application/gzip
