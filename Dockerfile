@@ -1,12 +1,11 @@
-FROM ubuntu:14.04
-MAINTAINER Gravebot
+FROM ubuntu:18.04
 
 # Setup system deps
 RUN apt-get update
 RUN apt-get -y install build-essential curl rsync tar python python-pip git libfontconfig1
 
 # Setup Node
-ENV NODE_VERSION 4.4.2
+ENV NODE_VERSION 6.17.1
 ENV NPM_VERSION 3.8.5
 
 RUN git clone https://github.com/creationix/nvm.git /.nvm

@@ -1,0 +1,43 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        run: docker build --rm -t phantomized .
+
+      - name: Run Docker image
+        run: docker run --name phantomized  -e PHANTOM_VERSION=2.1.1 phantomized
+
+      - name: Copy file from Docker container
+        run: docker cp phantomized:/app/dockerized-phantomjs.tar.gz ./dockerized-phantomjs.tar.gz
+
+      - name: Remove Docker container
+        run: docker rm phantomized
+
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: phantomized.tar.gz
+      #     path: ./dockerized-phantomjs.tar.gz
+
+      - name: Upload artifact to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./dockerized-phantomjs.tar.gz
+          asset_name: dockerized-phantomjs.tar.gz
+          asset_content_type: application/gzip
